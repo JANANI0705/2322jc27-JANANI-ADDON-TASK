@@ -1,0 +1,63 @@
+C:\xampp\mysql\bin>CREATE TABLE student (
+    student_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    marks INT
+);
+
+INSERT INTO student VALUES
+(1, 'Arun', 75),
+(2, 'Bala', 85),
+(3, 'Chitra', 92),
+(4, 'David', 60);
+SELECT * FROM student WHERE marks > 80;
++------------+--------+-------+
+| student_id | name   | marks |
++------------+--------+-------+
+|     2      | Bala   |  85   |
+|     3      | Chitra |  92   |
++------------+--------+-------+
+C:\xampp\mysql\bin>CREATE TABLE course (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50),
+    fees INT
+);
+
+INSERT INTO course VALUES
+(1, 'Java', 5000),
+(2, 'Python', 4500),
+(3, 'C++', 3000),
+(4, 'HTML', 3500);
+SELECT * FROM course ORDER BY fees ASC;
++-----------+-------------+-------+
+| course_id | course_name | fees  |
++-----------+-------------+-------+
+|     3     | C++         | 3000  |
+|     4     | HTML        | 3500  |
+|     2     | Python      | 4500  |
+|     1     | Java        | 5000  |
++-----------+-------------+-------+
+SELECT * FROM course WHERE course_name LIKE 'j%';
++-----------+-------------+-------+
+| course_id | course_name | fees  |
++-----------+-------------+-------+
+|     1     | Java        | 5000  |
++-----------+-------------+-------+
+C:\xampp\mysql\bin>CREATE TABLE employee (
+    emp_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    job VARCHAR(30),
+    salary INT
+);
+
+INSERT INTO employee VALUES
+(1, 'Kumar', 'Manager', 5000),
+(2, 'Raj', 'Salesman', 2500),
+(3, 'Vikram', 'Salesman', 1800),
+(4, 'Sita', 'Clerk', 2000);
+SELECT * FROM employee 
+WHERE job = 'Salesman' AND salary > 2000;
++--------+--------+----------+--------+
+| emp_id | name   | job      | salary |
++--------+--------+----------+--------+
+|   2    | Raj    | Salesman |  2500  |
++--------+--------+----------+--------+

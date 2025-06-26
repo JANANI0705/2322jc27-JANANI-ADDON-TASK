@@ -1,0 +1,68 @@
+-- EMPLOYEE table
+C:\xampp\mysql\bin>CREATE TABLE employee (
+    emp_id INT,
+    ename VARCHAR(50),
+    hiredate DATE,
+    job VARCHAR(50),
+    sal DECIMAL(10,2),
+    dept_id INT
+);
+
+-- DEPARTMENT table
+C:\xampp\mysql\bin>CREATE TABLE department (
+    dept_id INT,
+    dname VARCHAR(50),
+    location VARCHAR(50)
+);
+
+-- STUDENT table
+C:\xampp\mysql\bin>CREATE TABLE student (
+    stud_id INT,
+    sname VARCHAR(50)
+);
+
+-- COURSE table
+C:\xampp\mysql\bin>CREATE TABLE course (
+    course_id INT,
+    cname VARCHAR(50),
+    fee DECIMAL(10,2)
+);
+
+-- ENROLLMENT table (mapping students to courses)
+C:\xampp\mysql\bin>CREATE TABLE enrollment (
+    stud_id INT,
+    course_id INT
+);
+mysql>SELECT e.ename, e.hiredate, d.dname
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+WHERE YEAR(e.hiredate) = 1981
+  AND MONTH(e.hiredate) <= 6;
+| ename | hiredate   | dname      |
+| ----- | ---------- | ---------- |
+| SMITH | 1981-05-10 | RESEARCH   |
+| JONES | 1981-04-02 | ACCOUNTING |
+mysql>SELECT c.cname, s.sname, c.fee
+FROM course c
+JOIN enrollment e ON c.course_id = e.course_id
+JOIN student s ON s.stud_id = e.stud_id
+WHERE c.fee > 10000;
+| cname     | sname  | fee   |
+| --------- | ------ | ----- |
+| FullStack | Aakash | 12000 |
+| DataSci   | Janani | 15000 |
+SELECT d.dname, d.location, COUNT(DISTINCT e.job) AS job_count
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+GROUP BY d.dname, d.location;
+| dname      | location | job\_count |
+| ---------- | -------- | ---------- |
+| ACCOUNTING | NEW YORK | 2          |
+| RESEARCH   | DALLAS   | 3          |
+mysql>SELECT *
+FROM employee
+ORDER BY sal DESC
+LIMIT 1 OFFSET 2;
+| emp\_id | ename | hiredate   | job     | sal  | dept\_id |
+| ------- | ----- | ---------- | ------- | ---- | -------- |
+| 103     | BLAKE | 1981-07-01 | MANAGER | 2850 | 20       |

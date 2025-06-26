@@ -1,0 +1,55 @@
+mysql>SELECT c.cname, COUNT(s.sid) AS student_count
+FROM student s
+JOIN course c ON s.course_id = c.course_id
+GROUP BY c.cname;
++-----------+----------------+
+| cname     | student_count |
++-----------+----------------+
+| Java      | 3              |
+| Python    | 2              |
+| DBMS      | 1              |
++-----------+----------------+
+mysql>SELECT d.dname, AVG(e.salary) AS avg_salary
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+GROUP BY d.dname;
++-------------+-------------+
+| dname       | avg_salary |
++-------------+-------------+
+| HR          | 3000.00     |
+| Sales       | 4500.00     |
+| IT          | 7000.00     |
++-------------+-------------+
+mysql>SELECT d.dname, MAX(e.salary) AS max_salary, MIN(e.salary) AS min_salary
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+GROUP BY d.dname;
++-------------+-------------+-------------+
+| dname       | max_salary | min_salary |
++-------------+-------------+-------------+
+| HR          | 3500        | 2500        |
+| Sales       | 5000        | 4000        |
+| IT          | 8000        | 6000        |
++-------------+-------------+-------------+
+mysql>SELECT 
+  ename, 
+  CONCAT(ename, ' earns ', salary, ' monthly but wants ', salary * 3) AS `dream salaries`
+FROM employee;
++--------+---------------------------------------------+
+| ename  | dream salaries                              |
++--------+---------------------------------------------+
+| John   | John earns 3000 monthly but wants 9000      |
+| Alice  | Alice earns 5000 monthly but wants 15000    |
+| Bob    | Bob earns 7000 monthly but wants 21000      |
++--------+---------------------------------------------+
+mysql>SELECT d.dname, SUM(e.salary) AS total_salary
+FROM employee e
+JOIN department d ON e.dept_id = d.dept_id
+GROUP BY d.dname
+HAVING total_salary > 5000;
++-------------+--------------+
+| dname       | total_salary |
++-------------+--------------+
+| Sales       | 9000         |
+| IT          | 14000        |
++-------------+--------------+
