@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class MiniAddressBook {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] entries = new String[5]; // You can change to any size
+
+        System.out.println("Enter up to 5 address book entries (name and address):");
+
+        for (int i = 0; i < entries.length; i++) {
+            System.out.print("Entry " + (i + 1) + ": ");
+            entries[i] = scanner.nextLine();
+        }
+
+        System.out.println("\n--- Address Book Summary ---");
+
+        for (int i = 0; i < entries.length; i++) {
+            String entry = entries[i];
+            if (entry.isEmpty()) continue;
+
+            int wordCount = entry.trim().split("\\s+").length;
+            int charCount = entry.replaceAll("\\s+", "").length();
+            String reversed = new StringBuilder(entry).reverse().toString();
+            String longestWord = getLongestWord(entry);
+
+            System.out.println("\nEntry " + (i + 1) + ": " + entry);
+            System.out.println("Word Count: " + wordCount);
+            System.out.println("Character Count (excluding spaces): " + charCount);
+            System.out.println("Reversed Entry: " + reversed);
+            System.out.println("Longest Word: " + longestWord);
+        }
+
+        scanner.close();
+    }
+
+    // Helper method to find the longest word
+    public static String getLongestWord(String text) {
+        String[] words = text.split("\\s+");
+        String longest = "";
+        for (String word : words) {
+            if (word.length() > longest.length()) {
+                longest = word;
+            }
+        }
+        return longest;
+    }
+}
